@@ -15,7 +15,7 @@ class Status(Enum):
 
 
 #Class para criar a tabelas no banco de dados
-class conta(SQLModel, table=True):
+class Conta(SQLModel, table=True):
     id: int = Field(primary_key=True)
     valor: float
     banco: Bancos = Field(default=Bancos.NUBANK)
