@@ -33,6 +33,19 @@ def desativar_conta(id):
         conta.status = Status.INATIVO
         session.commit()
 
+def ativar_conta(id):
+    with Session(engine) as session:
+        statement = select(Conta).where(Conta.id==id)
+        ativo_conta = session.exec(statement).first()
+
+        if ativo_conta.valor >= 1:
+            print('Essa Conta tem saldo!')
+            ativo_conta.status = Status.ATIVO
+        else:
+            print('Não pode ser ativa')
+
+        session.commit()
+
 def tranferir_saldo(id_conta_saida, id_conta_entrada, valor):
     with Session(engine) as session:
         statement =select(Conta).where(Conta.id==id_conta_saida)
@@ -47,9 +60,11 @@ def tranferir_saldo(id_conta_saida, id_conta_entrada, valor):
         conta_entrada.valor += valor
         session.commit()
 
-tranferir_saldo(1, 2, 50)
+#tranferir_saldo(1, 2, 1)
 
 #Variavel que vai conter valores dinâmicos 
 #conta = Conta(valor=10, banco=Bancos.NUBANK)
 #criar_conta(conta)
-#desativar_conta(1)
+desativar_conta(1)
+#ativar_conta(2)
+#print(ativar_conta)
